@@ -1,7 +1,7 @@
 plugins {
     id 'application'
     id 'checkstyle'
-    id 'com.diffplug.spotless' version '8.3.0'
+    // id 'com.diffplug.spotless' version '8.3.0'
     id 'org.openjfx.javafxplugin' version '0.1.0'
 }
 
@@ -55,18 +55,18 @@ checkstyle {
 }
 
 // Spotless - Formatação automática
-spotless {
-    java {
-        target 'src/**/*.java', 'database/**/*.java', 'config/database/**/*.java'
-        importOrder()
-        removeUnusedImports()
-        eclipse().configFile('config/formatter/eclipse-formatter.xml')
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
-}
+// spotless {
+//    java {
+//        target 'src/**/*.java', 'database/**/*.java', 'config/database/**/*.java'
+//        importOrder()
+//        removeUnusedImports()
+//        eclipse().configFile('config/formatter/eclipse-formatter.xml')
+//        trimTrailingWhitespace()
+//        endWithNewline()
+//    }
+//}
 
 // Formatar antes de compilar
 tasks.named('compileJava') {
-    dependsOn 'spotlessApply'
+    //dependsOn 'spotlessApply'
 }
