@@ -1,0 +1,47 @@
+plugins {
+    id 'application'
+    id 'checkstyle'
+    id 'com.diffplug.spotless' version '8.3.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
+
+application {
+    mainClass = 'App'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+// Checkstyle - Sun/Oracle conventions (compatível NetBeans)
+checkstyle {
+    toolVersion = '13.3.0'
+    configFile = file("${rootDir}/config/checkstyle/sun_checks.xml")
+    ignoreFailures = false
+    maxWarnings = 0
+}
+
+// Spotless - Formatação automática
+spotless {
+    java {
+        target 'src/**/*.java'
+        importOrder()
+        removeUnusedImports()
+        eclipse().configFile('config/formatter/eclipse-formatter.xml')
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
+// Formatar antes de compilar
+tasks.named('compileJava') {
+    dependsOn 'spotlessApply'
+}
