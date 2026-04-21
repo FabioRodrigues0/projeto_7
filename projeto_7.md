@@ -47,9 +47,12 @@ projeto_7
 
 ## Dependências
 
-- **Java 25** - Versão do JDK
+- **Java 21** - Versão do JDK
+- **Bricks latest.release** - UI declarativa JavaFX (inclui JavaFX 21.0.5)
+  - Base de dados SQLite em `./data/database.db` (criada automaticamente)
+  - Schema: `DatabaseSchema.java`
+- **SQLite JDBC 3.45.1.0** - Driver SQLite
 - **Checkstyle 13.3.0** - Verificação de estilo (Sun/Oracle conventions)
-- **Spotless 8.3.0** - Formatação automática de código
 
 ## Relações
 
