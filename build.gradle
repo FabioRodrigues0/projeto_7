@@ -8,11 +8,12 @@ plugins {
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
+    //mavenLocal()
 }
 
 dependencies {
     // Bricks — UI library (inclui JavaFX internamente)
-    implementation 'com.github.fabiorodrigues0:bricks:latest.release'
+    implementation 'com.github.fabiorodrigues0:bricks:v0.5.0'
 
     // SQLite — base de dados local
     implementation 'org.xerial:sqlite-jdbc:3.45.1.0'

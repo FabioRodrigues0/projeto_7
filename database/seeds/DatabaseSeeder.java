@@ -1,5 +1,4 @@
 import fabiorodrigues.bricks.data.DB;
-import java.util.Map;
 
 /**
  * Dados iniciais da base de dados. Chamar DatabaseSeeder.run() no Effect initDB
@@ -16,52 +15,97 @@ public class DatabaseSeeder {
      * DatabaseSeeder.run(); });
      */
     public static void run() {
-        // Exemplo — descomenta e adapta:
-        DB.query()
-            .insertInto("professores")
-            .values(Map.of("nome", "Dr. Pedro", "genero", "Male", "idade", "55", "grau", "Doutor"))
-            .execute();
+        int totalProfessores = (int) DB.query()
+            .select("COUNT(*) as total")
+            .from("professores")
+            .executeRaw()
+            .first()
+            .getOrDefault("total", 0);
 
-        DB.query()
-            .insertInto("professores")
-            .values(Map.of("nome", "Prof. Ana", "genero", "Female", "idade", "66", "grau", "Mestre"))
-            .execute();
+        int totalDisciplinas = (int) DB.query()
+            .select("COUNT(*) as total")
+            .from("disciplinas")
+            .executeRaw()
+            .first()
+            .getOrDefault("total", 0);
 
-        DB.query()
-            .insertInto("professores")
-            .values(Map.of("nome", "Dra. Joaquina", "genero", "Female", "idade", "38", "grau", "Doutor"))
-            .execute();
+        if (totalProfessores == 0) {
+            DB.query()
+                .insertInto("professores")
+                .value("nome", "Prof. João")
+                .value("genero", "Male")
+                .value("idade", 55)
+                .value("grau", "Doutor")
+                .execute();
 
-        DB.query()
-            .insertInto("professores")
-            .values(Map.of("nome", "Prof. Joana", "genero", "Female", "idade", "41", "grau", "Mestre"))
-            .execute();
+            DB.query()
+                .insertInto("professores")
+                .value("nome", "Prof. Ana")
+                .value("genero", "Female")
+                .value("idade", 66)
+                .value("grau", "Mestre")
+                .execute();
 
-        DB.query()
-            .insertInto("professores")
-            .values(Map.of("nome", "Prof. Luís", "genero", "Male", "idade", "26", "grau", "Mestre"))
-            .execute();
+            DB.query()
+                .insertInto("professores")
+                .value("nome", "Dra. Joaquina")
+                .value("genero", "Female")
+                .value("idade", 38)
+                .value("grau", "Doutor")
+                .execute();
 
-        DB.query()
-            .insertInto("disciplinas")
-            .values(Map.of("nome", "Matematica", "desricacao", "Disciplina Matematica", "id_professor", "1"))
-            .execute();
+            DB.query()
+                .insertInto("professores")
+                .value("nome", "Prof. Joana")
+                .value("genero", "Female")
+                .value("idade", 41)
+                .value("grau", "Mestre")
+                .execute();
 
-        DB.query()
-            .insertInto("disciplinas")
-            .values(Map.of("nome", "Portugues", "desricacao", "Disciplina Português", "id_professor", "2"))
-            .execute();
-        DB.query()
-            .insertInto("disciplinas")
-            .values(Map.of("nome", "Inglês", "desricacao", "Disciplina Inglês", "id_professor", "3"))
-            .execute();
-        DB.query()
-            .insertInto("disciplinas")
-            .values(Map.of("nome", "Fisíca", "desricacao", "Disciplina Fisíca", "id_professor", "4"))
-            .execute();
-        DB.query()
-            .insertInto("disciplinas")
-            .values(Map.of("nome", "Informática", "desricacao", "Disciplina Informática", "id_professor", "5"))
-            .execute();
+            DB.query()
+                .insertInto("professores")
+                .value("nome", "Prof. Luís")
+                .value("genero", "Male")
+                .value("idade", 26)
+                .value("grau", "Mestre")
+                .execute();
+        }
+
+        if (totalDisciplinas == 0) {
+            DB.query()
+                .insertInto("disciplinas")
+                .value("nome", "Matematica")
+                .value("descricao", "Disciplina Matematica")
+                .value("id_professor", 1)
+                .execute();
+
+            DB.query()
+                .insertInto("disciplinas")
+                .value("nome", "Portugues")
+                .value("descricao", "Disciplina Português")
+                .value("id_professor", 2)
+                .execute();
+
+            DB.query()
+                .insertInto("disciplinas")
+                .value("nome", "Inglês")
+                .value("descricao", "Disciplina Inglês")
+                .value("id_professor", 3)
+                .execute();
+
+            DB.query()
+                .insertInto("disciplinas")
+                .value("nome", "Fisíca")
+                .value("descricao", "Disciplina Fisíca")
+                .value("id_professor", 4)
+                .execute();
+
+            DB.query()
+                .insertInto("disciplinas")
+                .value("nome", "Informática")
+                .value("descricao", "Disciplina Informática")
+                .value("id_professor", 5)
+                .execute();
+        }
     }
 }

@@ -1,30 +1,37 @@
 package models;
 
-public enum Disciplina {
-    MATEMATICA("Matemática"),
-    PORTUGUES("Português"),
-    INFORMATICA("Informática"),
-    INGLES("Inglês"),
-    FISICA("Fisíca"),
-    DEFAULT("");
+public class Disciplina {
 
+    private int id;
+    private String nome;
     private String descricao;
-    public Professor professor;
+    private int id_professor;
 
-    Disciplina(String descricao) {
-        this.descricao = descricao;
+    public Disciplina() {}
+
+    public Disciplina(int _id, String _nome, String _descricao, int _id_professor) {
+        this.id = _id;
+        this.nome = _nome;
+        this.descricao = _descricao;
+        this.id_professor = _id_professor;
     }
 
-    Disciplina(String descricao, Professor professor) {
-        this(descricao);
-        this.professor = professor;
+    public int getId() {
+        return id;
     }
 
-    /**
-     * Devolve o nome legível da disciplina.
-     *
-     * @return Descrição da disciplina.
-     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public String getDescricao() {
         return descricao;
     }
@@ -33,26 +40,16 @@ public enum Disciplina {
         this.descricao = descricao;
     }
 
-    public Professor getProfessor() {
-        return professor;
+    public int getIdProfessor() {
+        return id_professor;
     }
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
+    public void setIdProfessor(int id_professor) {
+        this.id_professor = id_professor;
     }
 
-    public static Disciplina[] getValues() {
-        return VALUES;
-    }
-
-    private static final Disciplina[] VALUES = values();
-
-    /**
-     * Devolve todos os valores do enum como array.
-     *
-     * @return Array de Disciplina.
-     */
-    public static Disciplina[] getDisciplinas() {
-        return VALUES;
+    @Override
+    public String toString() {
+        return nome;
     }
 }

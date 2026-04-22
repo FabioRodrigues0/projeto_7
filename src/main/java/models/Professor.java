@@ -3,23 +3,15 @@ package models;
 public class Professor extends Pessoa {
 
     String grau;
-    Disciplina disciplina;
 
     public Professor() {
         super();
         this.grau = "";
     }
 
-    public Professor(String _name, int _age, Gender _gender, String _grau, Disciplina _disciplina) {
-        super(_name, _gender, _age);
+    public Professor(int _id, String _nome, Gender _genero, int _idade, String _grau) {
+        super(_id, _nome, _genero, _idade);
         this.grau = _grau;
-        this.disciplina = _disciplina;
-    }
-
-    @Override
-    public String falar() {
-        String _fala = super.falar();
-        return _fala + " dou aulas de " + this.disciplina;
     }
 
     public String getGrau() {
@@ -28,5 +20,16 @@ public class Professor extends Pessoa {
 
     public void setGrau(String grau) {
         this.grau = grau;
+    }
+
+    @Override
+    public String falar() {
+        String _fala = super.falar();
+        return _fala + " dou aulas de ";
+    }
+
+    @Override
+    public String toString() {
+        return "" + this.nome;
     }
 }

@@ -13,7 +13,6 @@ public class DatabaseSchema {
      * CREATE TABLE IF NOT EXISTS.
      */
     public static void create() {
-        // Exemplo — descomenta e adapta:
         DB.query()
             .createTableIfNotExists("professores")
             .column("id", "INTEGER PRIMARY KEY AUTOINCREMENT")
@@ -24,10 +23,11 @@ public class DatabaseSchema {
             .execute();
 
         DB.query()
-            .createTableIfNotExists("nota_disciplina")
+            .createTableIfNotExists("disciplinas")
             .column("id", "INTEGER PRIMARY KEY AUTOINCREMENT")
-            .column("nota", "float NOT NULL")
-            .column("nome_disciplina", "TEXT NOT NULL")
+            .column("nome", "TEXT NOT NULL")
+            .column("descricao", "TEXT NOT NULL")
+            .column("id_professor", "INTEGER NOT NULL")
             .execute();
 
         DB.query()
@@ -36,16 +36,15 @@ public class DatabaseSchema {
             .column("nome", "TEXT NOT NULL")
             .column("genero", "TEXT NOT NULL")
             .column("idade", "INTEGER NOT NULL")
-            .column("media", "FLOAT NOT NULL")
-            .column("id_nota_disciplina", "INTEGER")
+            .column("media", "FLOAT NOT NULL DEFAULT 0")
             .execute();
 
         DB.query()
-            .createTableIfNotExists("disciplinas")
+            .createTableIfNotExists("notas_disciplina")
             .column("id", "INTEGER PRIMARY KEY AUTOINCREMENT")
-            .column("nome", "TEXT NOT NULL")
-            .column("desricacao", "TEXT NOT NULL")
-            .column("id_professor", "INTEGER")
+            .column("nota", "FLOAT NOT NULL")
+            .column("id_aluno", "INTEGER NOT NULL")
+            .column("id_disciplina", "INTEGER NOT NULL")
             .execute();
     }
 }

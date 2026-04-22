@@ -2,49 +2,71 @@ package models;
 
 public class Pessoa {
 
-    String name;
-    Gender gender;
-    int age;
+    int id;
+    String nome;
+    Gender genero;
+    int idade;
 
     public Pessoa() {
-        this.name = "";
-        this.gender = Gender.NONE;
-        this.age = 0;
+        this.id = 0;
+        this.nome = "";
+        this.genero = Gender.NONE;
+        this.idade = 0;
     }
 
     public Pessoa(String _name, Gender _gender, int _age) {
-        this.name = _name;
-        this.gender = _gender;
-        this.age = _age;
+        this.nome = _name;
+        this.genero = _gender;
+        this.idade = _age;
     }
 
-    public String getName() {
-        return name;
+    public Pessoa(int _id, String _name, Gender _gender, int _age) {
+        this.id = _id;
+        this.nome = _name;
+        this.genero = _gender;
+        this.idade = _age;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getId() {
+        return id;
     }
 
-    public Gender getGender() {
-        return gender;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setGender(Gender gender) {
-        this.gender = gender;
+    public String getNome() {
+        return nome;
     }
 
-    public int getAge() {
-        return age;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public Gender getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Gender genero) {
+        this.genero = genero;
+    }
+
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
     }
 
     // mudado para metodo e retorno de String porque nao irá imprimir
     public String falar() {
-        return ("Olá sou " + (this.gender == Gender.MALE ? "o" : "a") + this.name
-                + " com a idade de " + this.age);
+        return (
+            "Olá sou " +
+            (this.genero == Gender.MALE ? "o" : "a") +
+            this.nome +
+            " com a idade de " +
+            this.idade
+        );
     }
 }
