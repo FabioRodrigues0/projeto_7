@@ -1,5 +1,7 @@
 package models;
 
+import models.enums.Gender;
+
 public class Professor extends Pessoa {
 
     String grau;
@@ -9,9 +11,9 @@ public class Professor extends Pessoa {
         this.grau = "";
     }
 
-    public Professor(int _id, String _nome, Gender _genero, int _idade, String _grau) {
-        super(_id, _nome, _genero, _idade);
-        this.grau = _grau;
+    public Professor(int id, String nome, Gender genero, int idade, String grau) {
+        super(id, nome, genero, idade);
+        this.grau = grau;
     }
 
     public String getGrau() {
@@ -24,8 +26,8 @@ public class Professor extends Pessoa {
 
     @Override
     public String falar() {
-        String _fala = super.falar();
-        return _fala + " dou aulas de ";
+        String fala = super.falar();
+        return fala + " dou aulas de ";
     }
 
     @Override

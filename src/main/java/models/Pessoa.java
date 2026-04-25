@@ -1,5 +1,7 @@
 package models;
 
+import models.enums.Gender;
+
 public class Pessoa {
 
     int id;
@@ -14,17 +16,17 @@ public class Pessoa {
         this.idade = 0;
     }
 
-    public Pessoa(String _name, Gender _gender, int _age) {
-        this.nome = _name;
-        this.genero = _gender;
-        this.idade = _age;
+    public Pessoa(String name, Gender gender, int age) {
+        this.nome = name;
+        this.genero = gender;
+        this.idade = age;
     }
 
-    public Pessoa(int _id, String _name, Gender _gender, int _age) {
-        this.id = _id;
-        this.nome = _name;
-        this.genero = _gender;
-        this.idade = _age;
+    public Pessoa(int id, String name, Gender gender, int age) {
+        this.id = id;
+        this.nome = name;
+        this.genero = gender;
+        this.idade = age;
     }
 
     public int getId() {
@@ -62,11 +64,11 @@ public class Pessoa {
     // mudado para metodo e retorno de String porque nao irá imprimir
     public String falar() {
         return (
-            "Olá sou " +
-            (this.genero == Gender.MALE ? "o" : "a") +
-            this.nome +
-            " com a idade de " +
-            this.idade
+            "Olá sou "
+            + (this.genero == Gender.MALE ? "o" : "a")
+            + this.nome
+            + " com a idade de "
+            + this.idade
         );
     }
 }

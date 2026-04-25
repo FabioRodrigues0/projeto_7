@@ -1,6 +1,6 @@
-package dtos;
+package models.dtos;
 
-import enums.Gender;
+import models.enums.Gender;
 
 // AlunoComNota.java — record DTO para a tabela
 public record AlunoNota(

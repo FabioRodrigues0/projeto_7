@@ -5,15 +5,15 @@ public class Disciplina {
     private int id;
     private String nome;
     private String descricao;
-    private int id_professor;
+    private int idProfessor;
 
-    public Disciplina() {}
+    public Disciplina() { }
 
-    public Disciplina(int _id, String _nome, String _descricao, int _id_professor) {
-        this.id = _id;
-        this.nome = _nome;
-        this.descricao = _descricao;
-        this.id_professor = _id_professor;
+    public Disciplina(int id, String nome, String descricao, int idProfessor) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.idProfessor = idProfessor;
     }
 
     public int getId() {
@@ -41,11 +41,11 @@ public class Disciplina {
     }
 
     public int getIdProfessor() {
-        return id_professor;
+        return idProfessor;
     }
 
-    public void setIdProfessor(int id_professor) {
-        this.id_professor = id_professor;
+    public void setIdProfessor(int idProfessor) {
+        this.idProfessor = idProfessor;
     }
 
     @Override

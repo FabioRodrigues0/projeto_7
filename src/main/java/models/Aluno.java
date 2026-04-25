@@ -18,7 +18,12 @@ public class Aluno extends Pessoa {
 
     @Override
     public String falar() {
-        String _fala = super.falar();
-        return _fala + " estou inscrito em";
+        String fala = super.falar();
+        return fala + " estou inscrito em";
+    }
+
+    @Override
+    public String toString() {
+        return "" + this.nome;
     }
 }

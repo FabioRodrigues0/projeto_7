@@ -1,4 +1,4 @@
-package enums;
+package models.enums;
 
 public enum Gender {
     MALE("Male"), FEMALE("Female"), NONE("None");
