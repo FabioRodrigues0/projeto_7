@@ -1,4 +1,28 @@
 package views.viewmodels;
 
+import java.util.List;
+
+import fabiorodrigues.bricks.core.State;
+import fabiorodrigues.bricks.core.StateList;
+import models.Disciplina;
+import models.dtos.AlunoNota;
+import models.enums.Gender;
+
+// views/viewmodels/IAlunosTableViewModel.java
 public interface IAlunosTableViewModel {
+    List<AlunoNota> getAlunosDisciplina();
+    void setDisciplinas();
+    StateList<Disciplina> getDisciplinas();
+    void apagarNota(int alunoId, int disciplinaId);
+    State<Disciplina> getDisciplinaSelecionada();
+    State<Integer> getIdAluno();
+    State<String> getNomeAluno();
+    State<Gender> getGeneroAluno();
+    State<String> getIdadeAluno();
+    State<String> getNotaAluno();
+    State<Boolean> getIsEditOrAdd();
+    StateList<Boolean> getIsSideColumnOpen();
+    void selecionarDisciplina(Disciplina disciplina);
+    void guardarAluno();
+    void adicionarAluno();
 }

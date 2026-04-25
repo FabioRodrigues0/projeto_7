@@ -1,4 +1,4 @@
-package views.models;
+package views.viewmodels;
 
 import fabiorodrigues.bricks.components.Alert;
 import fabiorodrigues.bricks.core.BricksViewModel;
@@ -15,7 +15,7 @@ import models.enums.Gender;
 import models.NotaDisciplina;
 import models.Professor;
 
-public class ProfessorViewModel extends BricksViewModel {
+public class ProfessorViewModel extends BricksViewModel implements IAlunosTableViewModel {
     public final State<Professor> professorSelecionado = state(null);
     public final State<Disciplina> disciplinaSelecionada = state(null);
     public final StateList<Disciplina> disciplinas = stateList(List.of());
@@ -29,22 +29,48 @@ public class ProfessorViewModel extends BricksViewModel {
     // add = true; edit = false
     public final State<Boolean> isEditOrAdd = state(false);
 
-    public void openSideColumn() {
-        isSideColumnOpen.set(0, true);
-    }
 
     public void selecionarDisciplina(Disciplina disciplina) {
-        Alert.warning("teste", disciplina.getNome());
         disciplinaSelecionada.set(disciplina);
         getAlunosDisciplina();
     }
 
-    public void apagarNota(int id) {
-        apagarAluno(id, disciplinaSelecionada.get().getId());
-        getAlunosDisciplina();
+    @Override
+    public State<Integer> getIdAluno() {
+        return this.idAluno;
     }
 
-    public void getDisciplinas() {
+    @Override
+    public State<String> getNomeAluno() {
+        return this.nomeAluno;
+    }
+
+    @Override
+    public State<Gender> getGeneroAluno() {
+        return this.generoAluno;
+    }
+
+    @Override
+    public State<String> getIdadeAluno() {
+        return this.idadeAluno;
+    }
+
+    @Override
+    public State<String> getNotaAluno() {
+        return this.notaAluno;
+    }
+
+    @Override
+    public State<Boolean> getIsEditOrAdd() {
+        return this.isEditOrAdd;
+    }
+
+    @Override
+    public StateList<Boolean> getIsSideColumnOpen() {
+        return this.isSideColumnOpen;
+    }
+    @Override
+    public void setDisciplinas() {
         List<Disciplina> listDisciplinas = DB.query()
                 .select("id", "nome", "descricao", "id_professor")
                 .from("disciplinas")
@@ -57,6 +83,11 @@ public class ProfessorViewModel extends BricksViewModel {
         disciplinas.addAll(listDisciplinas);
     }
 
+    @Override
+    public StateList<Disciplina> getDisciplinas() {
+        return this.disciplinas;
+    }
+
     public List<AlunoNota> getAlunosDisciplina() {
         return DB.query()
                 .select("a.id", "a.nome", "a.genero", "a.idade", "a.media",
@@ -65,6 +96,20 @@ public class ProfessorViewModel extends BricksViewModel {
                 .join("notas_disciplina nd", "nd.id_aluno = a.id")
                 .where("nd.id_disciplina", "=", disciplinaSelecionada.get().getId())
                 .execute(AlunoNota.class);
+    }
+
+    @Override
+    public void apagarNota(int alunoId, int disciplinaId) {
+        DB.query()
+                .deleteFrom("notas_disciplina")
+                .where("id_aluno", "=", alunoId)
+                .where("id_disciplina", "=", disciplinaId)
+                .execute();
+    }
+
+    @Override
+    public State<Disciplina> getDisciplinaSelecionada() {
+        return this.disciplinaSelecionada;
     }
 
     private List<NotaDisciplina> getNotasAluno(){
@@ -90,7 +135,7 @@ public class ProfessorViewModel extends BricksViewModel {
         }
         return media;
     }
-
+    @Override
     public void guardarAluno() {
         List<NotaDisciplina> notas = getNotasAluno();
         double media = calcMedia(notas);
@@ -104,6 +149,7 @@ public class ProfessorViewModel extends BricksViewModel {
                 .execute();
     }
 
+    @Override
     public void adicionarAluno() {
         try {
             List<NotaDisciplina> notas = getNotasAluno();
@@ -145,6 +191,5 @@ public class ProfessorViewModel extends BricksViewModel {
                 .where("id_aluno", "=", alunoId)
                 .where("id_disciplina", "=", disciplinaId)
                 .execute();
-        DB.query().deleteFrom("alunos").where("id", "=", alunoId).execute();
     }
 }

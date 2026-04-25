@@ -1,4 +1,4 @@
-package scenes;
+package views;
 
 import fabiorodrigues.bricks.components.Alert;
 import fabiorodrigues.bricks.components.Button;
@@ -11,6 +11,11 @@ import fabiorodrigues.bricks.core.BricksScene;
 import fabiorodrigues.bricks.core.Component;
 import fabiorodrigues.bricks.style.Modifier;
 import models.Professor;
+import views.components.AdicionarAlunoPanel;
+import views.components.AlunosTable;
+import views.components.DisciplinasColumn;
+import views.viewmodels.LobbyViewModel;
+import views.viewmodels.ProfessorViewModel;
 
 public class ProfessorScene extends BricksScene {
 
@@ -24,7 +29,7 @@ public class ProfessorScene extends BricksScene {
         use(vm);
         this.vm = vm;
         this.vm.professorSelecionado.set(professorSelecionado);
-        vm.getDisciplinas();
+        vm.setDisciplinas();
     }
 
     // ── render() ───────────────────────────────────────────────────────────────
@@ -46,7 +51,7 @@ public class ProfessorScene extends BricksScene {
                                 return;
                             }
                             vm.isEditOrAdd.set(true);
-                            vm.openSideColumn();
+                            vm.getIsSideColumnOpen().set(0, true);
                         }),
                         new Spacer(),
                         new Button("Voltar").onClick(() ->
@@ -57,8 +62,8 @@ public class ProfessorScene extends BricksScene {
                     .gap(8)
                     .children(
                         new DisciplinasColumn(vm).render(),
-                        new AlunosTable(vm).render(),
-                        new AdicionarAlunoPanel(vm).render()
+                        new AlunosTable(vm, true).render(),
+                        new AdicionarAlunoPanel(vm, true).render()
                     )
             );
     }

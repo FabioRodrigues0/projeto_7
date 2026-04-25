@@ -1,4 +1,4 @@
-package views.models;
+package views.viewmodels;
 
 import java.util.List;
 
@@ -6,11 +6,15 @@ import fabiorodrigues.bricks.core.BricksViewModel;
 import fabiorodrigues.bricks.core.State;
 import fabiorodrigues.bricks.core.StateList;
 import fabiorodrigues.bricks.data.DB;
+import models.Aluno;
 import models.Professor;
 
 public class LobbyViewModel extends BricksViewModel {
     public final StateList<Professor> listProfessores = stateList(List.of());
     public final State<Professor> professorSelecionado = state(null);
+
+    public final StateList<Aluno> listAlunos = stateList(List.of());
+    public final State<Aluno> alunoSelecionado = state(null);
 
     public void getProfessores() {
         List<Professor> professores = DB.query()
@@ -29,5 +33,24 @@ public class LobbyViewModel extends BricksViewModel {
                 }
         ); // opção para não selecionar nenhum professor
         listProfessores.addAll(professores);
+    }
+
+    public void getAlunos() {
+        List<Aluno> alunos = DB.query()
+                .select("id", "nome", "genero", "idade", "media")
+                .from("alunos")
+                .orderBy("id", "DESC")
+                .execute(Aluno.class);
+
+        listAlunos.clear();
+        listAlunos.add(
+                new Aluno() {
+                    {
+                        setId(0);
+                        setNome("");
+                    }
+                }
+        ); // opção para não selecionar nenhum professor
+        listAlunos.addAll(alunos);
     }
 }

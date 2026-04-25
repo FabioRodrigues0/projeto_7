@@ -1,7 +1,9 @@
 import fabiorodrigues.bricks.components.Text;
-import fabiorodrigues.bricks.core.*;
-import models.Professor;
-import scenes.LobbyScene;
+import fabiorodrigues.bricks.core.BricksApplication;
+import fabiorodrigues.bricks.core.Component;
+import fabiorodrigues.bricks.core.Effect;
+import views.LobbyScene;
+import views.viewmodels.LobbyViewModel;
 
 /**
  * Ponto de entrada da aplicação Bricks. UI declarativa com estado reativo e
@@ -18,11 +20,12 @@ public class App extends BricksApplication {
 
     // ── Estado persistente ────────────────────────────────────────────────────
 
-    public final State<Professor> professorSelecionado = state(null);
+    public final LobbyViewModel lobbyVM = new LobbyViewModel();
 
     {
         setTitle("Pauta de Alunos v2");
-        setInitialScene(new LobbyScene(this, professorSelecionado));
+        setInitialScene(new LobbyScene(this, lobbyVM));
+        setSize(1248, 768);
         // setTheme(BricksTheme.dark()); // descomenta para dark mode
     }
 
