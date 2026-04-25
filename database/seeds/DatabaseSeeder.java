@@ -6,7 +6,7 @@ import fabiorodrigues.bricks.data.DB;
  */
 public class DatabaseSeeder {
 
-    private DatabaseSeeder() {}
+    private DatabaseSeeder() { }
 
     /**
      * Insere dados iniciais nas tabelas. Exemplo de uso no App.java:

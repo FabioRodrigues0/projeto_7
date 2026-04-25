@@ -6,7 +6,7 @@ import fabiorodrigues.bricks.data.DB;
  */
 public class DatabaseSchema {
 
-    private DatabaseSchema() {}
+    private DatabaseSchema() { }
 
     /**
      * Cria as tabelas se não existirem. Seguro para chamar múltiplas vezes — usa
