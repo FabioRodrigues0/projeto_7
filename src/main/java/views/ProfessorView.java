@@ -17,14 +17,15 @@ import views.components.DisciplinasColumn;
 import views.viewmodels.LobbyViewModel;
 import views.viewmodels.ProfessorViewModel;
 
-public class ProfessorScene extends BricksScene {
+public class ProfessorView extends BricksScene {
 
     private final ProfessorViewModel vm;
 
-    public ProfessorScene(
-            BricksApplication app,
-            ProfessorViewModel vm,
-            Professor professorSelecionado) {
+    public ProfessorView(
+        BricksApplication app,
+        ProfessorViewModel vm,
+        Professor professorSelecionado
+    ) {
         super(app);
         use(vm);
         this.vm = vm;
@@ -55,7 +56,7 @@ public class ProfessorScene extends BricksScene {
                         }),
                         new Spacer(),
                         new Button("Voltar").onClick(() ->
-                            app.navigateTo(new LobbyScene(app, new LobbyViewModel()))
+                            app.navigateTo(new LobbyView(app, new LobbyViewModel()))
                         )
                     ),
                 new Row()

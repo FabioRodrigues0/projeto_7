@@ -16,7 +16,6 @@ import java.util.List;
 
 import models.enums.Gender;
 import views.viewmodels.IAlunosTableViewModel;
-import views.viewmodels.ProfessorViewModel;
 
 public class AdicionarAlunoPanel {
 
@@ -26,6 +25,54 @@ public class AdicionarAlunoPanel {
     public AdicionarAlunoPanel(IAlunosTableViewModel vm, boolean comNota) {
         this.vm = vm;
         this.comNota = comNota;
+    }
+
+    private Component botaoGuardar() {
+        return new Button("Guardar").onClick(() -> {
+            if (vm.getNomeAluno().get().isEmpty() || vm.getNotaAluno().get().isEmpty() || vm.getGeneroAluno().get() != Gender.NONE) {
+                Alert.warning("Aviso", "Preencha todos os campos");
+                return;
+            }
+            if (Integer.parseInt(vm.getNotaAluno().get()) < 0 || Integer.parseInt(vm.getNotaAluno().get()) > 20) {
+                Alert.warning("Aviso", "Nota tem que ser de 0 a 20");
+                return;
+            }
+            if (Integer.parseInt(vm.getIdadeAluno().get()) <= 0) {
+                Alert.warning("Aviso", "Idade do aluno tem que ser positiva");
+                return;
+            }
+            vm.guardarAluno();
+            vm.getIsSideColumnOpen().set(0, false);
+            limparTextFields();
+        });
+    }
+
+    private Component botaoAdiciona() {
+        return new Button("Adicionar").onClick(() -> {
+            if (vm.getNomeAluno().get().isEmpty() || vm.getGeneroAluno().get() != Gender.NONE) {
+                Alert.warning("Aviso", "Preencha todos os campos");
+                return;
+            }
+            if (comNota && vm.getNotaAluno().get().isEmpty() || Integer.parseInt(vm.getNotaAluno().get()) < 0 || Integer.parseInt(vm.getNotaAluno().get()) > 20) {
+                Alert.warning("Aviso", "Nota tem que ser de 0 a 20");
+                return;
+            }
+            if (Integer.parseInt(vm.getIdadeAluno().get()) <= 0) {
+                Alert.warning("Aviso", "Idade do aluno tem que ser positiva");
+                return;
+            }
+            vm.adicionarAluno();
+            limparTextFields();
+        });
+    }
+
+
+    private void limparTextFields() {
+        vm.getIsSideColumnOpen().set(0, false);
+        vm.getNomeAluno().set("");
+        vm.getNotaAluno().set("");
+        vm.getIdadeAluno().set("");
+        vm.getGeneroAluno().set(Gender.NONE);
     }
 
     public Component render() {
@@ -38,7 +85,9 @@ public class AdicionarAlunoPanel {
                                 .elevation(2)
                                 .children(
                                         new Row().children(
-                                                new Text((vm.getIsEditOrAdd().get() ? "Adicionar" : "Editar") + " Aluno").fontSize(15),
+                                                new Text(
+                                                        (vm.getIsEditOrAdd().get() ? "Adicionar" : "Editar") + " Aluno"
+                                                ).fontSize(15),
                                                 new Spacer(),
                                                 new Button("✕").onClick(() -> vm.getIsSideColumnOpen().set(0, false))
                                         ),
@@ -51,49 +100,15 @@ public class AdicionarAlunoPanel {
                                                 .placeholder("Idade do aluno")
                                                 .bindTo(vm.getIdadeAluno()),
                                         new Dropdown<>(List.of(Gender.MALE, Gender.FEMALE))
-                                                .label("Tipo de nota:")
+                                                .label("Genero:")
                                                 .bindTo(vm.getGeneroAluno()),
-                                        comNota ? new Button("Guardar").onClick(() -> {
-                                                        if (vm.getNomeAluno().get().isEmpty() || vm.getNotaAluno().get().isEmpty()) {
-                                                            Alert.warning("Aviso", "Preencha todos os campos");
-                                                            return;
-                                                        }
-                                                            vm.guardarAluno();
-                                                            vm.getIsSideColumnOpen().set(0, false);
-                                                            vm.getNomeAluno().set("");
-                                                            vm.getNotaAluno().set("");
-                                                            vm.getIdadeAluno().set("");
-                                                            vm.getGeneroAluno().set(Gender.NONE);
-                                                    })
-                                                : new TextField()
+                                        comNota
+                                                ? new TextField()
                                                 .label("Nota:")
                                                 .placeholder("Nota do aluno")
-                                                .bindTo(vm.getNotaAluno()),
-                                                vm.getIsEditOrAdd().get()
-                                                        ? new Button("Adicionar").onClick(() -> {
-                                                    if (vm.getNomeAluno().get().isEmpty() || vm.getNotaAluno().get().isEmpty()) {
-                                                        Alert.warning("Aviso", "Preencha todos os campos");
-                                                        return;
-                                                    }
-                                                    vm.adicionarAluno();
-                                                    vm.getIsSideColumnOpen().set(0, false);
-                                                    vm.getNomeAluno().set("");
-                                                    vm.getNotaAluno().set("");
-                                                    vm.getIdadeAluno().set("");
-                                                    vm.getGeneroAluno().set(Gender.NONE);
-                                                })
-                                                        : new Button("Guardar").onClick(() -> {
-                                                    if (vm.getNomeAluno().get().isEmpty() || vm.getNotaAluno().get().isEmpty()) {
-                                                        Alert.warning("Aviso", "Preencha todos os campos");
-                                                        return;
-                                                    }
-                                                    vm.guardarAluno();
-                                                    vm.getIsSideColumnOpen().set(0, false);
-                                                    vm.getNomeAluno().set("");
-                                                    vm.getNotaAluno().set("");
-                                                    vm.getIdadeAluno().set("");
-                                                    vm.getGeneroAluno().set(Gender.NONE);
-                                                })
+                                                .bindTo(vm.getNotaAluno())
+                                                : new Spacer(),
+                                        vm.getIsEditOrAdd().get() ? botaoAdiciona() : botaoGuardar()
                                 )
                 );
     }

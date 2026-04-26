@@ -2,7 +2,7 @@ import fabiorodrigues.bricks.components.Text;
 import fabiorodrigues.bricks.core.BricksApplication;
 import fabiorodrigues.bricks.core.Component;
 import fabiorodrigues.bricks.core.Effect;
-import views.LobbyScene;
+import views.LobbyView;
 import views.viewmodels.LobbyViewModel;
 
 /**
@@ -24,7 +24,7 @@ public class App extends BricksApplication {
 
     {
         setTitle("Pauta de Alunos v2");
-        setInitialScene(new LobbyScene(this, lobbyVM));
+        setInitialScene(new LobbyView(this, lobbyVM));
         setSize(1248, 768);
         // setTheme(BricksTheme.dark()); // descomenta para dark mode
     }

@@ -24,6 +24,6 @@ public class Aluno extends Pessoa {
 
     @Override
     public String toString() {
-        return "" + this.nome;
+        return this.nome;
     }
 }

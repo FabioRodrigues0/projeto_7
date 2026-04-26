@@ -1,14 +1,12 @@
 package views.viewmodels;
 
-import java.util.List;
-
 import fabiorodrigues.bricks.core.State;
 import fabiorodrigues.bricks.core.StateList;
+import java.util.List;
 import models.Disciplina;
 import models.dtos.AlunoNota;
 import models.enums.Gender;
 
-// views/viewmodels/IAlunosTableViewModel.java
 public interface IAlunosTableViewModel {
     List<AlunoNota> getAlunosDisciplina();
     void setDisciplinas();
@@ -25,4 +23,5 @@ public interface IAlunosTableViewModel {
     void selecionarDisciplina(Disciplina disciplina);
     void guardarAluno();
     void adicionarAluno();
+    void refreshListTable();
 }
